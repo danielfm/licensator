@@ -1,27 +1,22 @@
-Licensator - The Open Source License Adviser
-============================================
+# Licensator - The Open Source License Adviser
 
 Licensator is a little web application written just for fun in about 48 hours.
 
 
-About Licensator
-----------------
+## About Licensator
 
 If you do some research, you'll find that there are [literally hundreds][oss-licenses]  of open source licenses. Most of them are not used anymore, or are superseded by other licenses, or are incompatible with other licenses.
 
 As you can see, things can get ugly. That's why we wrote this app.
 
 
-Prerequisites
--------------
+## Prerequisites
 
-* [Clojure][clj] 1.2.1;
-* [Clojure Contrib][contrib] 1.2.0;
-* [Leiningen][lein] 1.6.2.
+* [Clojure][clj] 1.3.0;
+* [Leiningen][lein] 1.7.0.
 
 
-Running Licensator
-------------------
+## Running Licensator
 
 This is a three-step process:
 
