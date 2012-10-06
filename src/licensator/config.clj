@@ -1,12 +1,9 @@
 (ns licensator.config)
 
-;; Media URL prefix
-(def ^:dynamic *media-prefix* "/media/")
-
 ;; Prefix for the most used kinds of resources
-(def ^:dynamic *img-prefix* (str *media-prefix* "img/"))
-(def ^:dynamic *css-prefix* (str *media-prefix* "css/"))
-(def ^:dynamic *js-prefix* (str *media-prefix* "js/"))
+(def ^:dynamic *img-prefix* "img/")
+(def ^:dynamic *css-prefix* "css/")
+(def ^:dynamic *js-prefix* "js/")
 
 ;; Other config
 (def ^:dynamic *author-url* "http://danielfm.me")

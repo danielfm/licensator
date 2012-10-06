@@ -7,6 +7,4 @@
                  [compojure "0.5.0"]
                  [ring "1.1.6"]
                  [hiccup "1.0.1"]]
-  :compile-path "war/WEB-INF/classes"
-  :library-path "war/WEB-INF/lib"
-  :main licensator.local)
+  :main licensator.core)
