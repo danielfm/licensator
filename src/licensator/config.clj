@@ -1,9 +1,9 @@
 (ns licensator.config)
 
 ;; Prefix for the most used kinds of resources
-(def ^:dynamic *img-prefix* "img/")
-(def ^:dynamic *css-prefix* "css/")
-(def ^:dynamic *js-prefix* "js/")
+(def ^:dynamic *img-prefix* "/img/")
+(def ^:dynamic *css-prefix* "/css/")
+(def ^:dynamic *js-prefix* "/js/")
 
 ;; Other config
 (def ^:dynamic *author-url* "http://danielfm.me")
