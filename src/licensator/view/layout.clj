@@ -1,8 +1,9 @@
 (ns licensator.view.layout
-  (:use (licensator config)
-	(hiccup core form-helpers page-helpers)))
+  (:use [licensator config]
+        [hiccup core form page element])
+  (:import [java.util Calendar]))
 
-(def ^{:private true} *menu*
+(def ^:dynamic *menu*
      [{:id :home     :uri "/"          :title "Home"}
       {:id :licenses :uri "/licenses/" :title "Licenses"}
       {:id :about    :uri "/about/"    :title "About"}
@@ -23,7 +24,7 @@
   [current-id-kw menu-entry]
   [:li
    (cond (= current-id-kw (:id menu-entry))
-	 {:class "active"})
+         {:class "active"})
    (link-to (:uri menu-entry) (:title menu-entry))])
 
 (defn elink-to
@@ -78,31 +79,31 @@
      [:meta {:name "viewport" :content "width=device-width; initial-scale=1.0; maximum-scale=1.0;"}]
      [:title title]
      (apply include-style [{:href (str *css-prefix* "style.css") :media "all"}
-			   {:href (str *css-prefix* "handheld.css") :media "handheld"}])
+                           {:href (str *css-prefix* "handheld.css") :media "handheld"}])
      (apply include-js [(str *js-prefix* "modernizr-1.5.min.js")])]
-    
+
     [:body
      [:div {:id "container"}
       [:header {:id "banner" :class "body"}
        [:h1 [:a {:href "/"} "Licensator"]]
        [:nav
-	[:ul (map (partial menu-item menu) *menu*)]]]
-      
+        [:ul (map (partial menu-item menu) *menu*)]]]
+
       (cond banner
-	    [:aside {:id "about" :class "body"}
-	     [:article
-	      (cond (:img banner)
-		    [:figure [:img {:src (:img banner) :alt (:alt banner)}]])
-	      (:title banner)
-	      (:content banner)]])
-      
+            [:aside {:id "about" :class "body"}
+             [:article
+              (cond (:img banner)
+                    [:figure [:img {:src (:img banner) :alt (:alt banner)}]])
+              (:title banner)
+              (:content banner)]])
+
       (cond content
-	    [:div {:id "main" :class "body"}
-	     [:section {:id "content" :class "body"}
-	      content]])
-      
+            [:div {:id "main" :class "body"}
+             [:section {:id "content" :class "body"}
+              content]])
+
       [:footer {:id "contentinfo" :class "body"}
-       [:p "Copyleft 2010-2011 &minus; " [:a {:href "http://destaquenet.com" :rel "external"} "Destaquenet Solutions"]]]
+       [:p "Copyleft 2010-" (.get (Calendar/getInstance) Calendar/YEAR) " &minus; " [:a {:href *author-url* :rel "external"} *author-name*]]]
 
       (str "<!--[if lt IE 7 ]><script src=\"" *js-prefix* "dd_belatedpng.js" "\"></script><![endif]-->")
       (google-analytics *google-analytics-key*)]])))

@@ -1,6 +1,6 @@
 (ns licensator.core
   (:use (compojure core)
-	(licensator.view index license about contact error-404))
+        (licensator.view index license about contact error-404))
   (:require [compojure.route :as route]))
 
 (defroutes handler

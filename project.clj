@@ -3,14 +3,11 @@
   :url "http://github.com/danielfm/licensator"
   :aot [licensator.local
         licensator.production]
-  :dependencies [[org.clojure/clojure "1.2.1"]
-                 [org.clojure/clojure-contrib "1.2.0"]
-		 [compojure "0.5.0"]
-		 [ring "0.3.0"]
-		 [ring/ring-jetty-adapter "0.3.0"]
-		 [ring/ring-servlet "0.3.0"]
-		 [hiccup "0.3.0"]]
+  :dependencies [[org.clojure/clojure "1.3.0"]
+                 [compojure "0.5.0"]
+                 [ring "1.1.6"]
+                 [hiccup "1.0.1"]]
   :dev-dependencies [[swank-clojure "1.3.0-SNAPSHOT"]]
   :compile-path "war/WEB-INF/classes"
   :library-path "war/WEB-INF/lib"
-  :run-aliases { :app [licensator.local] })
+  :main licensator.local)

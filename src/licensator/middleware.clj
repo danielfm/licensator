@@ -9,6 +9,6 @@ redirect to the same path with a trailing slash."
     (if-not (= :get (:request-method request))
       (handler request)
       (let [^String path (url-decode (:uri request))]
-	(if (.endsWith path "/")
-	  (handler request)
-	  (redirect (str path "/")))))))
+        (if (.endsWith path "/")
+          (handler request)
+          (redirect (str path "/")))))))

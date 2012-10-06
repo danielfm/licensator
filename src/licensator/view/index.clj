@@ -1,7 +1,7 @@
 (ns licensator.view.index
   (use (licensator config licenses)
        (licensator.view layout)
-       (hiccup form-helpers page-helpers)))
+       (hiccup form page element)))
 
 (declare *license-fields*)
 
@@ -24,9 +24,9 @@ given license."
   "Renders form controls for a 'yes-no-dunno' kind of answer."
   [question-id]
   (let [group (name question-id)
-	options [{:text "Yes" :value "true"}
-		 {:text "No" :value "false"}
-		 {:text "I don't know/care" :value ""}]]
+        options [{:text "Yes" :value "true"}
+                 {:text "No" :value "false"}
+                 {:text "I don't know/care" :value ""}]]
     (for [{:keys [text checked value]} options]
       [:div {:class "choice"}
        (radio-button group nil value)
@@ -38,48 +38,48 @@ given license."
   (let [group (name question-id)]
     (for [{:keys [id long-name short-name]} (sort-by :short-name *licenses*)]
       (let [input-id (str group "-" (name id))]
-	[:div {:class "choice"}
-	 [:input {:type "checkbox" :name group :id input-id :value id}]
-	 [:label {:for input-id :title long-name} short-name]]))))
+        [:div {:class "choice"}
+         [:input {:type "checkbox" :name group :id input-id :value id}]
+         [:label {:for input-id :title long-name} short-name]]))))
 
 (defn- render-question
   "Renders a question. See *questions* var for more details."
   [{:keys [id question help-text render-fn]}]
   [:li {:class "entry"}
    (list [:p {:class "title"} question]
-	 [:div {:class "choices"} (render-fn id)]
-	 [:aside {:class "helptext"} [:p help-text]])])
+         [:div {:class "choices"} (render-fn id)]
+         [:aside {:class "helptext"} [:p help-text]])])
 
 (def ^{:private true} *license-fields*
-     [{:id :compatible-with
-       :question "If your work is based on other open source projects, which are these project's licenses?"
-       :help-text "\"Based\" means to copy from or adapt all or part of another work in a fashion requiring copyright permission, other than the making of an exact copy."
-       :render-fn license-check
-       :parse-fn compatible-list}
-      
-      {:id :copyright
-       :question "Do you want the license to include explicit copyright terms?"
-       :help-text (list (elink-to "http://en.wikipedia.org/wiki/Copyright" "Copyright") " are exclusive rights granted to the author or creator of an original work, including the right to copy, distribute and adapt the work.")
-       :render-fn yes-no
-       :parse-fn to-boolean}
-      
-      {:id :patent
-       :question "Do you want the license to include explicit patent-related terms?"
-       :help-text "Check \"Yes\" if the recipients, i.e., the people who get the work, are granted patent license under the contributor's essential patent claims."
-       :render-fn yes-no
-       :parse-fn to-boolean}
-      
-      {:id :affero
-       :question "If your work is used as a network service, must the server on which it runs provide a pubilc download link to the program's source code?"
-       :help-text "If the work runs on a server and let users communicate with it there, check \"Yes\" if the server must allow the users to download the source code corresponding to the program that it's running. If what's running there is a modified version of the work, the users must be able to get the source code as they modified it."
-       :render-fn yes-no
-       :parse-fn to-boolean}
-      
-      {:id :copyleft
-       :question "Do you want derivative works to be distributed under the same license?"
-       :help-text (list (elink-to "http://en.wikipedia.org/wiki/Copyleft" "Copyleft") " is a play on the word " [:em "copyright"] " to describe the practice of using copyright law to offer the right to distribute copies and modified versions of a work and requiring that the same rights be preserved in modified versions of the work.")
-       :render-fn yes-no
-       :parse-fn to-boolean}])
+  [{:id :compatible-with
+    :question "If your work is based on other open source projects, which are these project's licenses?"
+    :help-text "\"Based\" means to copy from or adapt all or part of another work in a fashion requiring copyright permission, other than the making of an exact copy."
+    :render-fn license-check
+    :parse-fn compatible-list}
+
+   {:id :copyright
+    :question "Do you want the license to include explicit copyright terms?"
+    :help-text (list (elink-to "http://en.wikipedia.org/wiki/Copyright" "Copyright") " are exclusive rights granted to the author or creator of an original work, including the right to copy, distribute and adapt the work.")
+    :render-fn yes-no
+    :parse-fn to-boolean}
+
+   {:id :patent
+    :question "Do you want the license to include explicit patent-related terms?"
+    :help-text "Check \"Yes\" if the recipients, i.e., the people who get the work, are granted patent license under the contributor's essential patent claims."
+    :render-fn yes-no
+    :parse-fn to-boolean}
+
+   {:id :affero
+    :question "If your work is used as a network service, must the server on which it runs provide a pubilc download link to the program's source code?"
+    :help-text "If the work runs on a server and let users communicate with it there, check \"Yes\" if the server must allow the users to download the source code corresponding to the program that it's running. If what's running there is a modified version of the work, the users must be able to get the source code as they modified it."
+    :render-fn yes-no
+    :parse-fn to-boolean}
+
+   {:id :copyleft
+    :question "Do you want derivative works to be distributed under the same license?"
+    :help-text (list (elink-to "http://en.wikipedia.org/wiki/Copyleft" "Copyleft") " is a play on the word " [:em "copyright"] " to describe the practice of using copyright law to offer the right to distribute copies and modified versions of a work and requiring that the same rights be preserved in modified versions of the work.")
+    :render-fn yes-no
+    :parse-fn to-boolean}])
 
 (defn index-view
   "Renders the index page."
@@ -88,26 +88,26 @@ given license."
    :menu :home
    :title "Licensator - The open source license adviser"
    :banner {:img (str *img-prefix* "find.png")
-	    :alt "Find the right license"
-	    :title [:hgroup
-		    [:h2 {:class "-home-"} "Starting a new open source project?"]
-		    [:h3 (menu :about "We can help you!")]]
-	    :content (list [:p "Create your own open source project can be a lot of fun! Except, of course, when you have to decide " (menu :licenses "which license") " to use."]
-			   [:p (menu :home "Licensator") " is a free service that helps you with this boring task. All you have to do is answer a few questions about your project and we'll recommend the licenses that fit best. "]
-			   [:p "Enjoy!"])}
+            :alt "Find the right license"
+            :title [:hgroup
+                    [:h2 {:class "-home-"} "Starting a new open source project?"]
+                    [:h3 (menu :about "We can help you!")]]
+            :content (list [:p "Create your own open source project can be a lot of fun! Except, of course, when you have to decide " (menu :licenses "which license") " to use."]
+                           [:p (menu :home "Licensator") " is a free service that helps you with this boring task. All you have to do is answer a few questions about your project and we'll recommend the licenses that fit best. "]
+                           [:p "Enjoy!"])}
    :content (list [:h2 "Answer as many questions as you can and hit \"Go!\""]
-		  (form-to [:post "."]
-			   [:ol {:id "license-fields" :class "numbered"}
-			    (map render-question *license-fields*)]
-			   [:div {:class "commands"}
-			    (submit-button "Go!")]))))
+                  (form-to [:post "."]
+                           [:ol {:id "license-fields" :class "numbered"}
+                            (map render-question *license-fields*)]
+                           [:div {:class "commands"}
+                            (submit-button "Go!")]))))
 
 (defn- parse-param
   "Parses each license field submitted by the user through the input form."
   [[k v]]
   (let [key (keyword k)
-	cfn (:parse-fn (get-entry key *license-fields*))
-	val (if cfn (cfn v) v)]
+        cfn (:parse-fn (get-entry key *license-fields*))
+        val (if cfn (cfn v) v)]
     [key val]))
 
 (defn- parse-form
@@ -148,16 +148,16 @@ given license."
    :menu :home
    :title "Results - Licensator"
    :banner {:img (str *img-prefix* "not-found.png")
-	    :alt "No licenses found"
-	    :title [:h2 {:class "-results-"} "No compatible licenses. Dammit!"]
-	    :content (list [:p "We're sorry, but " [:strong "none"] " of the licenses match your answers."]
-			   (licenses-count-msg lcoll))}))
+            :alt "No licenses found"
+            :title [:h2 {:class "-results-"} "No compatible licenses. Dammit!"]
+            :content (list [:p "We're sorry, but " [:strong "none"] " of the licenses match your answers."]
+                           (licenses-count-msg lcoll))}))
 
 (defn suggest-view
   "Renders the license suggestions page."
   [form]
   (let [criteria (parse-form form)
-	lcoll (find-matches criteria *licenses*)]
+        lcoll (find-matches criteria *licenses*)]
     ((if (empty? lcoll)
        licenses-not-found
        licenses-found) lcoll)))

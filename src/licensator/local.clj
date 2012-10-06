@@ -1,26 +1,26 @@
 (ns licensator.local
   (:use (ring.middleware reload stacktrace file file-info params)
-	(ring.adapter jetty)
-	(licensator core middleware)))
+        (ring.adapter jetty)
+        (licensator core middleware)))
 
 (def app
-     (-> handler
-	 (wrap-append-slash)
-	 (wrap-params)
-	 (wrap-file "war")
-	 (wrap-file-info)
-	 (wrap-reload '[licensator.core
-			licensator.config
-			licensator.licenses
-			licensator.local
-			licensator.middleware
-			licensator.view.layout
-			licensator.view.index
-			licensator.view.license
-			licensator.view.about
-			licensator.view.contact
-			licensator.view.error-404])
-	 (wrap-stacktrace)))
+  (-> handler
+      (wrap-append-slash)
+      (wrap-params)
+      (wrap-file "war")
+      (wrap-file-info)
+      (wrap-reload '[licensator.core
+                     licensator.config
+                     licensator.licenses
+                     licensator.local
+                     licensator.middleware
+                     licensator.view.layout
+                     licensator.view.index
+                     licensator.view.license
+                     licensator.view.about
+                     licensator.view.contact
+                     licensator.view.error-404])
+      (wrap-stacktrace)))
 
 (defn start-server [port]
   (future (run-jetty #'app {:port port})))
