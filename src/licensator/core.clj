@@ -22,8 +22,8 @@
       (wrap-file "public")))
 
 (defn start-server [port]
-  (future (run-jetty #'app {:port (or port 8080) :join? false})))
+  (future (run-jetty #'app {:port port :join? false})))
 
 (defn -main []
-  (let [port (Integer. (System/getenv "PORT"))]
+  (let [port (Integer. (or (System/getenv "PORT") 8080))]
     (start-server port)))
