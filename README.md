@@ -26,7 +26,7 @@ Running Licensator
 This is a three-step process:
 
 1. Run `lein deps` to get the app's dependencies;
-2. Run `lein run app` to start the app in a local [Jetty][jetty] instance;
+2. Run `lein run` to start the app in a local [Jetty][jetty] instance;
 3. Point your browser to [http://localhost:8080][dev] and have fun!
 
 
