@@ -18,17 +18,11 @@ As you can see, things can get ugly. That's why we wrote this app.
 
 ## Running Licensator
 
-This is a three-step process:
-
-1. Run `lein deps` to get the app's dependencies;
-2. Run `lein run` to start the app in a local [Jetty][jetty] instance;
-3. Point your browser to [http://localhost:8080][dev] and have fun!
+Just run `lein run` to compile the app and start a local
+[Jetty][jetty] instance.
 
 
 [clj]: http://clojure.org/
-[compojure]: http://github.com/weavejester/compojure
-[contrib]: http://github.com/clojure/clojure-contrib
-[dev]: http://localhost:8080
 [jetty]: http://jetty.codehaus.org/jetty/
 [lein]: http://github.com/technomancy/leiningen
 [oss-licenses]: http://opensource.org/licenses/
